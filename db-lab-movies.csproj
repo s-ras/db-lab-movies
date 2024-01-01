@@ -33,6 +33,48 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LibExcel">
+      <HintPath>..\..\..\..\..\tools\stimulsoft reports\Libs\Net\LibExcel.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Base">
+      <HintPath>..\..\..\..\..\tools\stimulsoft reports\Libs\Net\Stimulsoft.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Controls">
+      <HintPath>..\..\..\..\..\tools\stimulsoft reports\Libs\Net\Stimulsoft.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Controls.Win">
+      <HintPath>..\..\..\..\..\tools\stimulsoft reports\Libs\Net\Stimulsoft.Controls.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Database">
+      <HintPath>..\..\..\..\..\tools\stimulsoft reports\Libs\Net\Stimulsoft.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Design">
+      <HintPath>..\..\..\..\..\tools\stimulsoft reports\Libs\Net\Stimulsoft.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Editor">
+      <HintPath>..\..\..\..\..\tools\stimulsoft reports\Libs\Net\Stimulsoft.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report">
+      <HintPath>..\..\..\..\..\tools\stimulsoft reports\Libs\Net\Stimulsoft.Report.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report.Check">
+      <HintPath>..\..\..\..\..\tools\stimulsoft reports\Libs\Net\Stimulsoft.Report.Check.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report.Design">
+      <HintPath>..\..\..\..\..\tools\stimulsoft reports\Libs\Net\Stimulsoft.Report.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report.Helper">
+      <HintPath>..\..\..\..\..\tools\stimulsoft reports\Libs\Net\Stimulsoft.Report.Helper.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report.Web">
+      <HintPath>..\..\..\..\..\tools\stimulsoft reports\Libs\Net\Stimulsoft.Report.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report.Win">
+      <HintPath>..\..\..\..\..\tools\stimulsoft reports\Libs\Net\Stimulsoft.Report.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="Svg">
+      <HintPath>..\..\..\..\..\tools\stimulsoft reports\Libs\Net\Svg.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms.Ribbon35, Version=3.5.8.0, Culture=neutral, processorArchitecture=MSIL">

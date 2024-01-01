@@ -8,11 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Stimulsoft.Base;
+using Stimulsoft.Report;
 
 namespace db_lab_movies
 {
     public partial class frmMain : Form
     {
+        public SqlDataAdapter da;
+
         public frmMain()
         {
             InitializeComponent();
@@ -23,7 +27,6 @@ namespace db_lab_movies
             this.Close();
         }
 
-        public SqlDataAdapter da;
         public void Refresh_Grid(string tblName)
         {
             DataSet ds = new DataSet();
@@ -89,6 +92,7 @@ namespace db_lab_movies
                     MessageBox.Show("The deletion was done successfully...");
                 }
                 c.Disconnect();
+                Refresh_Grid("persons_info");
             } else
             {
                 MessageBox.Show("Please select a row of grid to delete...");
@@ -107,6 +111,55 @@ namespace db_lab_movies
             } else
             {
                 MessageBox.Show("Please select a row of grid to Update...");
+            }
+        }
+
+        private void Backup_Menu_Item_Click(object sender, EventArgs e)
+        {
+            backupFileDialog.ShowDialog();
+            SqlConnection conn = new SqlConnection("Data Source = .//SQLEXPRESS; Initial Catalog = master; Integrated Security = True");
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("BACKUP DATABASE movies TO DISK = '" + backupFileDialog.FileName + "'", conn);
+            cmd.ExecuteNonQuery();
+            MessageBox.Show("Database Backup has been created successfully...");
+            conn.Close();
+        }
+
+        private void Restore_Menu_Item_Click(object sender, EventArgs e)
+        {
+            restoreFileDialog.ShowDialog();
+            SqlConnection conn = new SqlConnection("Data Source = .//SQLEXPRESS; Initial Catalog = master; Integrated Security = True");
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("RESTORE DATABASE movies FROM DISK '" + restoreFileDialog.FileName + "' WITH REPLACE", conn);
+            cmd.ExecuteNonQuery();
+            MessageBox.Show("Database backup file has been Restore successfully...");
+            conn.Close();
+            DbConnection c = new DbConnection();
+            da = new SqlDataAdapter("SELECT * FROM persons_info", c.cnn);
+            Refresh_Grid("persons_info");
+            c.Disconnect();
+        }
+
+        private void btnPrintPerson_Click(object sender, EventArgs e)
+        {
+            StiReport report = new StiReport();
+            report.Load("PersonReport.mrt");
+            ((Stimulsoft.Report.Dictionary.StiSqlSource) report.Dictionary.DataSources.Items[0]).SqlCommand = "SELECT person_name FROM persons_info WHERE upper(person_name) like upper('%" + txtSearchPerson.TextBoxText + "%')";
+            report.Compile();
+            report.Show();
+        }
+
+        private void rbnMain_ActiveTabChanged(object sender, EventArgs e)
+        {
+            DbConnection c = new DbConnection();
+            if (person_tab.Selected)
+            {
+                da = new SqlDataAdapter("SELECT * FROM persons_info", c.cnn);
+                Refresh_Grid("persons_info");
+            } else if (movie_tab.Selected)
+            {
+                da = new SqlDataAdapter("SELECT * FROM persons_info", c.cnn);
+                Refresh_Grid("movies_info");
             }
         }
     }

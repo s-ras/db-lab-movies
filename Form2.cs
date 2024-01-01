@@ -61,6 +61,7 @@ namespace db_lab_movies
                 cmd.ExecuteNonQuery();
                 txtPersonName.Text = string.Empty;
                 fmain.Refresh_Grid("persons_info");
+                this.Close();
             }
             c.Disconnect();
         }

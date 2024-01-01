@@ -44,7 +44,22 @@
             this.btnEditPerson = new System.Windows.Forms.RibbonButton();
             this.rbnpSearchPerson = new System.Windows.Forms.RibbonPanel();
             this.txtSearchPerson = new System.Windows.Forms.RibbonTextBox();
+            this.rbnpPrintPerson = new System.Windows.Forms.RibbonPanel();
+            this.btnPrintPerson = new System.Windows.Forms.RibbonButton();
             this.dtgView = new System.Windows.Forms.DataGridView();
+            this.backupFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.restoreFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.movie_tab = new System.Windows.Forms.RibbonTab();
+            this.rbnpAddMovie = new System.Windows.Forms.RibbonPanel();
+            this.rbnpDeleteMovie = new System.Windows.Forms.RibbonPanel();
+            this.rbnpEditMovie = new System.Windows.Forms.RibbonPanel();
+            this.rbnpSearchMovie = new System.Windows.Forms.RibbonPanel();
+            this.rbnpPrintMovie = new System.Windows.Forms.RibbonPanel();
+            this.btnPrintMovie = new System.Windows.Forms.RibbonButton();
+            this.txtSearchMovie = new System.Windows.Forms.RibbonTextBox();
+            this.btnEditMovie = new System.Windows.Forms.RibbonButton();
+            this.btnDeleteMovie = new System.Windows.Forms.RibbonButton();
+            this.btnAddMovie = new System.Windows.Forms.RibbonButton();
             ((System.ComponentModel.ISupportInitialize)(this.dtgView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,8 +87,10 @@
             this.rbnMain.Size = new System.Drawing.Size(800, 145);
             this.rbnMain.TabIndex = 0;
             this.rbnMain.Tabs.Add(this.person_tab);
+            this.rbnMain.Tabs.Add(this.movie_tab);
             this.rbnMain.TabsMargin = new System.Windows.Forms.Padding(12, 26, 20, 0);
             this.rbnMain.ThemeColor = System.Windows.Forms.RibbonTheme.Blue;
+            this.rbnMain.ActiveTabChanged += new System.EventHandler(this.rbnMain_ActiveTabChanged);
             // 
             // Backup_Menu_Item
             // 
@@ -81,6 +98,7 @@
             this.Backup_Menu_Item.Image = ((System.Drawing.Image)(resources.GetObject("Backup_Menu_Item.Image")));
             this.Backup_Menu_Item.SmallImage = ((System.Drawing.Image)(resources.GetObject("Backup_Menu_Item.SmallImage")));
             this.Backup_Menu_Item.Text = "Backup";
+            this.Backup_Menu_Item.Click += new System.EventHandler(this.Backup_Menu_Item_Click);
             // 
             // Restore_Menu_Item
             // 
@@ -88,6 +106,7 @@
             this.Restore_Menu_Item.Image = ((System.Drawing.Image)(resources.GetObject("Restore_Menu_Item.Image")));
             this.Restore_Menu_Item.SmallImage = ((System.Drawing.Image)(resources.GetObject("Restore_Menu_Item.SmallImage")));
             this.Restore_Menu_Item.Text = "Restore";
+            this.Restore_Menu_Item.Click += new System.EventHandler(this.Restore_Menu_Item_Click);
             // 
             // Help_Menu_Item
             // 
@@ -117,6 +136,7 @@
             this.person_tab.Panels.Add(this.rbnpDeletePerson);
             this.person_tab.Panels.Add(this.rbnpEditPerson);
             this.person_tab.Panels.Add(this.rbnpSearchPerson);
+            this.person_tab.Panels.Add(this.rbnpPrintPerson);
             this.person_tab.Text = "Persons";
             // 
             // rbnpAddPerson
@@ -166,18 +186,91 @@
             this.txtSearchPerson.TextBoxText = "";
             this.txtSearchPerson.TextBoxTextChanged += new System.EventHandler(this.txtSearchPerson_TextBoxTextChanged);
             // 
+            // rbnpPrintPerson
+            // 
+            this.rbnpPrintPerson.Items.Add(this.btnPrintPerson);
+            this.rbnpPrintPerson.Text = "Print";
+            // 
+            // btnPrintPerson
+            // 
+            this.btnPrintPerson.Image = ((System.Drawing.Image)(resources.GetObject("btnPrintPerson.Image")));
+            this.btnPrintPerson.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnPrintPerson.SmallImage")));
+            this.btnPrintPerson.Text = "";
+            this.btnPrintPerson.Click += new System.EventHandler(this.btnPrintPerson_Click);
+            // 
             // dtgView
             // 
             this.dtgView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtgView.Location = new System.Drawing.Point(0, 145);
-            this.dtgView.MultiSelect = false;
             this.dtgView.Name = "dtgView";
             this.dtgView.RowHeadersWidth = 51;
             this.dtgView.RowTemplate.Height = 24;
-            this.dtgView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dtgView.Size = new System.Drawing.Size(800, 305);
             this.dtgView.TabIndex = 1;
+            // 
+            // movie_tab
+            // 
+            this.movie_tab.Panels.Add(this.rbnpAddMovie);
+            this.movie_tab.Panels.Add(this.rbnpDeleteMovie);
+            this.movie_tab.Panels.Add(this.rbnpEditMovie);
+            this.movie_tab.Panels.Add(this.rbnpSearchMovie);
+            this.movie_tab.Panels.Add(this.rbnpPrintMovie);
+            this.movie_tab.Text = "Movies";
+            // 
+            // rbnpAddMovie
+            // 
+            this.rbnpAddMovie.Items.Add(this.btnAddMovie);
+            this.rbnpAddMovie.Text = "Add Movie";
+            // 
+            // rbnpDeleteMovie
+            // 
+            this.rbnpDeleteMovie.Items.Add(this.btnDeleteMovie);
+            this.rbnpDeleteMovie.Text = "Delete Movie";
+            // 
+            // rbnpEditMovie
+            // 
+            this.rbnpEditMovie.Items.Add(this.btnEditMovie);
+            this.rbnpEditMovie.Text = "Edit Movie";
+            // 
+            // rbnpSearchMovie
+            // 
+            this.rbnpSearchMovie.Items.Add(this.txtSearchMovie);
+            this.rbnpSearchMovie.Text = "Search Movie";
+            // 
+            // rbnpPrintMovie
+            // 
+            this.rbnpPrintMovie.Items.Add(this.btnPrintMovie);
+            this.rbnpPrintMovie.Text = "Print";
+            // 
+            // btnPrintMovie
+            // 
+            this.btnPrintMovie.Image = ((System.Drawing.Image)(resources.GetObject("btnPrintMovie.Image")));
+            this.btnPrintMovie.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnPrintMovie.SmallImage")));
+            this.btnPrintMovie.Text = "";
+            // 
+            // txtSearchMovie
+            // 
+            this.txtSearchMovie.Text = "";
+            this.txtSearchMovie.TextBoxText = "";
+            // 
+            // btnEditMovie
+            // 
+            this.btnEditMovie.Image = ((System.Drawing.Image)(resources.GetObject("btnEditMovie.Image")));
+            this.btnEditMovie.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnEditMovie.SmallImage")));
+            this.btnEditMovie.Text = "";
+            // 
+            // btnDeleteMovie
+            // 
+            this.btnDeleteMovie.Image = ((System.Drawing.Image)(resources.GetObject("btnDeleteMovie.Image")));
+            this.btnDeleteMovie.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnDeleteMovie.SmallImage")));
+            this.btnDeleteMovie.Text = "";
+            // 
+            // btnAddMovie
+            // 
+            this.btnAddMovie.Image = ((System.Drawing.Image)(resources.GetObject("btnAddMovie.Image")));
+            this.btnAddMovie.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnAddMovie.SmallImage")));
+            this.btnAddMovie.Text = "";
             // 
             // frmMain
             // 
@@ -212,6 +305,21 @@
         private System.Windows.Forms.RibbonButton btnEditPerson;
         private System.Windows.Forms.RibbonTextBox txtSearchPerson;
         private System.Windows.Forms.DataGridView dtgView;
+        private System.Windows.Forms.SaveFileDialog backupFileDialog;
+        private System.Windows.Forms.OpenFileDialog restoreFileDialog;
+        private System.Windows.Forms.RibbonPanel rbnpPrintPerson;
+        private System.Windows.Forms.RibbonButton btnPrintPerson;
+        private System.Windows.Forms.RibbonTab movie_tab;
+        private System.Windows.Forms.RibbonPanel rbnpAddMovie;
+        private System.Windows.Forms.RibbonPanel rbnpDeleteMovie;
+        private System.Windows.Forms.RibbonPanel rbnpEditMovie;
+        private System.Windows.Forms.RibbonPanel rbnpSearchMovie;
+        private System.Windows.Forms.RibbonPanel rbnpPrintMovie;
+        private System.Windows.Forms.RibbonButton btnAddMovie;
+        private System.Windows.Forms.RibbonButton btnDeleteMovie;
+        private System.Windows.Forms.RibbonButton btnEditMovie;
+        private System.Windows.Forms.RibbonTextBox txtSearchMovie;
+        private System.Windows.Forms.RibbonButton btnPrintMovie;
     }
 }
 

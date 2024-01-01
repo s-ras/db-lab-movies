@@ -46,20 +46,20 @@
             this.txtSearchPerson = new System.Windows.Forms.RibbonTextBox();
             this.rbnpPrintPerson = new System.Windows.Forms.RibbonPanel();
             this.btnPrintPerson = new System.Windows.Forms.RibbonButton();
+            this.movie_tab = new System.Windows.Forms.RibbonTab();
+            this.rbnpAddMovie = new System.Windows.Forms.RibbonPanel();
+            this.btnAddMovie = new System.Windows.Forms.RibbonButton();
+            this.rbnpDeleteMovie = new System.Windows.Forms.RibbonPanel();
+            this.btnDeleteMovie = new System.Windows.Forms.RibbonButton();
+            this.rbnpEditMovie = new System.Windows.Forms.RibbonPanel();
+            this.btnEditMovie = new System.Windows.Forms.RibbonButton();
+            this.rbnpSearchMovie = new System.Windows.Forms.RibbonPanel();
+            this.txtSearchMovie = new System.Windows.Forms.RibbonTextBox();
+            this.rbnpPrintMovie = new System.Windows.Forms.RibbonPanel();
+            this.btnPrintMovie = new System.Windows.Forms.RibbonButton();
             this.dtgView = new System.Windows.Forms.DataGridView();
             this.backupFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.restoreFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.movie_tab = new System.Windows.Forms.RibbonTab();
-            this.rbnpAddMovie = new System.Windows.Forms.RibbonPanel();
-            this.rbnpDeleteMovie = new System.Windows.Forms.RibbonPanel();
-            this.rbnpEditMovie = new System.Windows.Forms.RibbonPanel();
-            this.rbnpSearchMovie = new System.Windows.Forms.RibbonPanel();
-            this.rbnpPrintMovie = new System.Windows.Forms.RibbonPanel();
-            this.btnPrintMovie = new System.Windows.Forms.RibbonButton();
-            this.txtSearchMovie = new System.Windows.Forms.RibbonTextBox();
-            this.btnEditMovie = new System.Windows.Forms.RibbonButton();
-            this.btnDeleteMovie = new System.Windows.Forms.RibbonButton();
-            this.btnAddMovie = new System.Windows.Forms.RibbonButton();
             ((System.ComponentModel.ISupportInitialize)(this.dtgView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -198,17 +198,6 @@
             this.btnPrintPerson.Text = "";
             this.btnPrintPerson.Click += new System.EventHandler(this.btnPrintPerson_Click);
             // 
-            // dtgView
-            // 
-            this.dtgView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dtgView.Location = new System.Drawing.Point(0, 145);
-            this.dtgView.Name = "dtgView";
-            this.dtgView.RowHeadersWidth = 51;
-            this.dtgView.RowTemplate.Height = 24;
-            this.dtgView.Size = new System.Drawing.Size(800, 305);
-            this.dtgView.TabIndex = 1;
-            // 
             // movie_tab
             // 
             this.movie_tab.Panels.Add(this.rbnpAddMovie);
@@ -223,20 +212,43 @@
             this.rbnpAddMovie.Items.Add(this.btnAddMovie);
             this.rbnpAddMovie.Text = "Add Movie";
             // 
+            // btnAddMovie
+            // 
+            this.btnAddMovie.Image = ((System.Drawing.Image)(resources.GetObject("btnAddMovie.Image")));
+            this.btnAddMovie.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnAddMovie.SmallImage")));
+            this.btnAddMovie.Text = "";
+            // 
             // rbnpDeleteMovie
             // 
             this.rbnpDeleteMovie.Items.Add(this.btnDeleteMovie);
             this.rbnpDeleteMovie.Text = "Delete Movie";
+            // 
+            // btnDeleteMovie
+            // 
+            this.btnDeleteMovie.Image = ((System.Drawing.Image)(resources.GetObject("btnDeleteMovie.Image")));
+            this.btnDeleteMovie.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnDeleteMovie.SmallImage")));
+            this.btnDeleteMovie.Text = "";
             // 
             // rbnpEditMovie
             // 
             this.rbnpEditMovie.Items.Add(this.btnEditMovie);
             this.rbnpEditMovie.Text = "Edit Movie";
             // 
+            // btnEditMovie
+            // 
+            this.btnEditMovie.Image = ((System.Drawing.Image)(resources.GetObject("btnEditMovie.Image")));
+            this.btnEditMovie.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnEditMovie.SmallImage")));
+            this.btnEditMovie.Text = "";
+            // 
             // rbnpSearchMovie
             // 
             this.rbnpSearchMovie.Items.Add(this.txtSearchMovie);
             this.rbnpSearchMovie.Text = "Search Movie";
+            // 
+            // txtSearchMovie
+            // 
+            this.txtSearchMovie.Text = "";
+            this.txtSearchMovie.TextBoxText = "";
             // 
             // rbnpPrintMovie
             // 
@@ -249,28 +261,16 @@
             this.btnPrintMovie.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnPrintMovie.SmallImage")));
             this.btnPrintMovie.Text = "";
             // 
-            // txtSearchMovie
+            // dtgView
             // 
-            this.txtSearchMovie.Text = "";
-            this.txtSearchMovie.TextBoxText = "";
-            // 
-            // btnEditMovie
-            // 
-            this.btnEditMovie.Image = ((System.Drawing.Image)(resources.GetObject("btnEditMovie.Image")));
-            this.btnEditMovie.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnEditMovie.SmallImage")));
-            this.btnEditMovie.Text = "";
-            // 
-            // btnDeleteMovie
-            // 
-            this.btnDeleteMovie.Image = ((System.Drawing.Image)(resources.GetObject("btnDeleteMovie.Image")));
-            this.btnDeleteMovie.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnDeleteMovie.SmallImage")));
-            this.btnDeleteMovie.Text = "";
-            // 
-            // btnAddMovie
-            // 
-            this.btnAddMovie.Image = ((System.Drawing.Image)(resources.GetObject("btnAddMovie.Image")));
-            this.btnAddMovie.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnAddMovie.SmallImage")));
-            this.btnAddMovie.Text = "";
+            this.dtgView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dtgView.Location = new System.Drawing.Point(0, 145);
+            this.dtgView.Name = "dtgView";
+            this.dtgView.RowHeadersWidth = 51;
+            this.dtgView.RowTemplate.Height = 24;
+            this.dtgView.Size = new System.Drawing.Size(800, 305);
+            this.dtgView.TabIndex = 1;
             // 
             // frmMain
             // 

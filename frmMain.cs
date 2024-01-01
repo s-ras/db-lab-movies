@@ -29,31 +29,43 @@ namespace db_lab_movies
 
         public void Refresh_Grid(string tblName)
         {
-            DataSet ds = new DataSet();
-            da.Fill(ds, tblName);
-            dtgView.DataBindings.Clear();
-            dtgView.DataBindings.Add("datasource", ds, tblName);
+            using (var db = new moviesEntities())
+            {
+                if (tblName == "persons_info")
+                {
+                    dtgView.DataSource = (from p in db.persons_info select new { p.person_name }).ToList();
+                }
+                else if (tblName == "movies_info")
+                {
+                    dtgView.DataSource = (from m in db.movies_info
+                                          select new
+                                          {
+                                              m.title,
+                                              m.Director_Name,
+                                              m.Production_Company,
+                                              m.release_date,
+                                              m.budget,
+                                              m.runtime,
+                                              m.Movie_Genere,
+                                              m.Movie_Original_Language
+                                          }).ToList();
+                }
+            }
         }
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            DbConnection c = new DbConnection();
-            da = new SqlDataAdapter("SELECT * FROM persons_info", c.cnn);
             Refresh_Grid("persons_info");
         }
 
         private void txtSearchPerson_TextBoxTextChanged(object sender, EventArgs e)
         {
-            DbConnection c = new DbConnection();
-            SqlCommand cmd = new SqlCommand("sp_search_person", c.cnn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            SqlParameter param;
-            param = cmd.Parameters.Add("@inp", SqlDbType.VarChar, 500);
-            param.Value = txtSearchPerson.TextBoxText;
-            cmd.ExecuteNonQuery();
-            da = new SqlDataAdapter(cmd);
-            Refresh_Grid("persons_info");
-            c.Disconnect();
+            using (var db = new moviesEntities())
+            {
+                dtgView.DataSource = (from p in db.persons_info
+                                      where p.person_name.Contains(txtSearchPerson.TextBoxText)
+                                      select new { p.person_name }).ToList();
+            }
         }
 
         private void btnAddPerson_Click(object sender, EventArgs e)
@@ -64,16 +76,13 @@ namespace db_lab_movies
 
         private int Find_Person_ID(string name)
         {
-            DbConnection c = new DbConnection();
-            SqlCommand cmd = new SqlCommand("sp_find_person_id", c.cnn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            SqlParameter param;
-            param = cmd.Parameters.Add("@inp", SqlDbType.VarChar, 500);
-            param.Value = name;
-            param = cmd.Parameters.Add("@p_id", SqlDbType.Int);
-            param.Direction = ParameterDirection.Output;
-            cmd.ExecuteNonQuery();
-            return Int32.Parse(cmd.Parameters["@p_id"].Value.ToString()); 
+            using (var db = new moviesEntities())
+            {
+                System.Data.Entity.Core.Objects.ObjectParameter pid =
+                    new System.Data.Entity.Core.Objects.ObjectParameter("p_id", typeof(Int32));
+                db.sp_find_person_id(name, pid);
+                return Convert.ToInt32(pid.Value);
+            }
         }
 
         private void btnDeletePerson_Click(object sender, EventArgs e)
@@ -81,19 +90,21 @@ namespace db_lab_movies
             if (dtgView.SelectedRows.Count > 0)
             {
                 string name = dtgView.SelectedRows[0].Cells[0].Value.ToString();
-                DbConnection c = new DbConnection();
+                int person_id = Find_Person_ID(name);
                 DialogResult result = MessageBox.Show("Are you sure?", "", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
-                    SqlCommand cmd = new SqlCommand();
-                    cmd.CommandText = "DELETE FROM person WHERE person_id = " + Find_Person_ID(name).ToString();
-                    cmd.Connection = c.cnn;
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("The deletion was done successfully...");
+                    using (var db = new moviesEntities())
+                    {
+                        person deleted_person = db.people.Single(p => p.person_id == person_id);
+                        db.people.Remove(deleted_person);
+                        db.SaveChanges();
+                        MessageBox.Show("The deletion was done successfully...");
+                        txtSearchPerson.TextBoxText = string.Empty;
+                    }
                 }
-                c.Disconnect();
-                Refresh_Grid("persons_info");
-            } else
+            }
+            else
             {
                 MessageBox.Show("Please select a row of grid to delete...");
             }
@@ -108,7 +119,8 @@ namespace db_lab_movies
                 fp.id = Find_Person_ID(person_name);
                 fp.name = person_name;
                 fp.ShowDialog();
-            } else
+            }
+            else
             {
                 MessageBox.Show("Please select a row of grid to Update...");
             }
@@ -144,21 +156,19 @@ namespace db_lab_movies
         {
             StiReport report = new StiReport();
             report.Load("PersonReport.mrt");
-            ((Stimulsoft.Report.Dictionary.StiSqlSource) report.Dictionary.DataSources.Items[0]).SqlCommand = "SELECT person_name FROM persons_info WHERE upper(person_name) like upper('%" + txtSearchPerson.TextBoxText + "%')";
+            ((Stimulsoft.Report.Dictionary.StiSqlSource)report.Dictionary.DataSources.Items[0]).SqlCommand = "SELECT person_name FROM persons_info WHERE upper(person_name) like upper('%" + txtSearchPerson.TextBoxText + "%')";
             report.Compile();
             report.Show();
         }
 
         private void rbnMain_ActiveTabChanged(object sender, EventArgs e)
         {
-            DbConnection c = new DbConnection();
             if (person_tab.Selected)
             {
-                da = new SqlDataAdapter("SELECT * FROM persons_info", c.cnn);
                 Refresh_Grid("persons_info");
-            } else if (movie_tab.Selected)
+            }
+            else if (movie_tab.Selected)
             {
-                da = new SqlDataAdapter("SELECT * FROM persons_info", c.cnn);
                 Refresh_Grid("movies_info");
             }
         }

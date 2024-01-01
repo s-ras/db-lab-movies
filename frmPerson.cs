@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stimulsoft.Report.Components;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -32,38 +33,36 @@ namespace db_lab_movies
 
         private void Update_Person()
         {
-            DbConnection c = new DbConnection();
             DialogResult result = MessageBox.Show("Are you sure>", "", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "UPDATE person SET person_name = @name WHERE person_id = " + id.ToString();
-                cmd.Connection = c.cnn;
-                cmd.Parameters.AddWithValue("@name", txtPersonName.Text);
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("The updation was done successfully...");
-                fmain.Refresh_Grid("persons_info");
-                this.Close();
+                using (var db = new moviesEntities())
+                {
+                    person updated_person = db.people.Single(p => p.person_id == id);
+                    updated_person.person_name = txtPersonName.Text;
+                    db.SaveChanges();
+                    MessageBox.Show("The updation was done successfully...");
+                    fmain.Refresh_Grid("persons_info");
+                    this.Close();
+                }
             }
-            c.Disconnect();
         }
 
         private void Add_Person()
         {
-            DbConnection c = new DbConnection();
             DialogResult result = MessageBox.Show("Are you sure?", "", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "INSERT INTO PERSON (person_name) VALUES (@name)";
-                cmd.Connection = c.cnn;
-                cmd.Parameters.AddWithValue("@name", txtPersonName.Text);
-                cmd.ExecuteNonQuery();
+                using (var db = new moviesEntities())
+                {
+                    person new_person = new person();
+                    new_person.person_name = txtPersonName.Text;
+                    db.people.Add(new_person);
+                    db.SaveChanges();
+                }
                 txtPersonName.Text = string.Empty;
                 fmain.Refresh_Grid("persons_info");
-                this.Close();
             }
-            c.Disconnect();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
